@@ -11,6 +11,31 @@ st.title("📊 Ortaklar Cari Hesap Adat Hesaplama Sistemi")
 st.markdown("---")
 
 # --- Dosya yükleme ---
+import io
+
+st.markdown("### 📘 Muavin Dosyası Formatı")
+st.write("Lütfen muavin Excel dosyanızı aşağıdaki örneğe uygun şekilde hazırlayın:")
+st.write("**Sütun Başlıkları:** Tarih | Borç | Alacak")
+
+example = pd.DataFrame({
+    "Tarih": ["01.01.2025", "05.02.2025"],
+    "Borç": [10000, 0],
+    "Alacak": [0, 5000]
+})
+
+example_buffer = io.BytesIO()
+example.to_excel(example_buffer, index=False)
+
+st.download_button(
+    label="📥 Örnek Muavin Dosyasını İndir",
+    data=example_buffer.getvalue(),
+    file_name="Ornek_Muavin.xlsx",
+    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    key="example_muavin"
+)
+
+st.markdown("---")
+
 muavin_file = st.file_uploader("Muavin Excel Dosyasını Yükle (.xlsx)", type=["xlsx"])
 
 # Dönem tarihleri
